@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS job (
 
 CREATE TABLE IF NOT EXISTS hired_employee (
     employee_id INT NOT NULL COMMENT 'Id of the employee',
-    employee_name VARCHAR(200) NOT NULL COMMENT 'Name and surname of the employee',
-    hiring_datetime VARCHAR(20) NOT NULL COMMENT 'Hiring datetime in ISO format',
-    department_id INT NOT NULL COMMENT 'Id of the department which the employee was hired for',
-    job_id INT NOT NULL COMMENT 'Id of the job which the employee was hired for',
+    employee_name VARCHAR(200) COMMENT 'Name and surname of the employee',
+    hiring_datetime VARCHAR(20) COMMENT 'Hiring datetime in ISO format',
+    department_id INT COMMENT 'Id of the department which the employee was hired for',
+    job_id INT COMMENT 'Id of the job which the employee was hired for',
     creation_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Row creation timestamp',
     PRIMARY KEY (employee_id),
     FOREIGN KEY (department_id) REFERENCES department(department_id),
