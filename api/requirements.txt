@@ -1,3 +1,6 @@
 fastapi[standard]==0.115.12
 pydantic==2.11.3
 python-jose==3.4.0
+SQLAlchemy==2.0.40
+mysqlclient==2.2.7
+pandas==2.2.3
