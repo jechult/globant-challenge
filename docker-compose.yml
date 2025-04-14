@@ -1,7 +1,22 @@
-version: '3.7'
-
 services:
   app:
     build: ./api
     ports:
       - 80:80
+    depends_on:
+      - companydb
+
+  companydb:
+    image: mysql:8
+    volumes:
+      - "./ddl_script:/docker-entrypoint-initdb.d"
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_USER=jechu
+    expose: 
+      - 3306
+
+volumes:
+  mysql_data:

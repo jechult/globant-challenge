@@ -2,6 +2,7 @@ from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 from fastapi.security import OAuth2PasswordBearer
+from typing import Annotated
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl = 'login')
 
@@ -45,21 +46,21 @@ def verify_access_token(token: str, credentials_exception):
         if id is None:
             raise credentials_exception
         
-        return 0
+        return id
     
     except JWTError:
 
         raise credentials_exception
     
 def get_current_user(
-    token: str = Depends(oauth2_scheme)
+    token: Annotated[str, Depends(oauth2_scheme)]
 ):
 
     """This function returns a 0 value is checking process is ok
     Args:
         token: token code as a result of access token creation
     Returns:
-        message: 0 value as a result of correct checking
+        message: Result of token validation
     """
 
     credentials_exception = HTTPException(
