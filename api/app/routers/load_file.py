@@ -12,6 +12,8 @@ router = APIRouter(
     tags = ['Load files']
 )
 
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
 @router.post('/')
 def load_file(
     current_user: Annotated[str, Depends(get_current_user)],
@@ -27,8 +29,6 @@ def load_file(
     Returns:
         message: informaton about data ingestion process
     """
-
-    engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
     current_dt = datetime.strftime(datetime.now(), DATE_FORMAT)
 
