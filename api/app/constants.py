@@ -2,6 +2,7 @@ DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 API_USER = 'jechult'
 API_PASSWORD = 'admin'
 SQLALCHEMY_DATABASE_URL = "mysql://jechu:password@companydb:3306/companydb"
+DEFAULT_REPORTING_YEAR = 2021
 CHUNKSIZE = 10000
 TABLE_COLUMNS = {
     "department": [
