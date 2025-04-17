@@ -35,6 +35,27 @@ def download_file(
         headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
 
+def read_and_clean_input_data(
+        query: str,
+        reporting_year: int
+):
+    
+    df = pd.read_sql(
+        query,
+        con = engine
+    )
+
+    df = df.loc[
+        df['hiring_year'] == reporting_year
+    ]
+
+    df.fillna(
+        'N/A',
+        inplace = True
+    )
+
+    return df
+
 @router.get('/hired_employee_per_quarter')
 def get_hired_employee_per_quarter(
     current_user: Annotated[str, Depends(get_current_user)],
@@ -68,18 +89,9 @@ def get_hired_employee_per_quarter(
         ON a.job_id = c.job_id
     '''
 
-    df = pd.read_sql(
+    df = read_and_clean_input_data(
         query,
-        con = engine
-    )
-
-    df = df.loc[
-        df['hiring_year'] == reporting_year
-    ]
-
-    df.fillna(
-        'N/A',
-        inplace = True
+        reporting_year
     )
 
     final_df = pd.pivot_table(
@@ -101,6 +113,15 @@ def get_hired_employee_per_quarter(
         0,
         inplace = True
     )
+
+    final_df.columns = [
+        "department",
+        "job",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4"
+    ]
 
     return download_file(
         final_df,
@@ -128,7 +149,45 @@ def get_department_hired_employee_more_than_mean(
     print(current_user)
 
     query = '''
-        
+        SELECT
+            b.department_id,
+            b.department_name,
+            a.employee_id,
+            YEAR(STR_TO_DATE(hiring_datetime,'%%Y-%%m-%%dT%%TZ')) as hiring_year
+        FROM hired_employee a
+        LEFT JOIN department b
+        ON a.department_id = b.department_id
     '''
 
-    pass
+    df = read_and_clean_input_data(
+        query,
+        reporting_year
+    )
+
+    df_group = df.groupby(['department_id','department_name'])['employee_id'].count()
+    mean_per_department = df_group.mean()
+
+    final_df = df_group.to_frame()
+    final_df.reset_index(
+        inplace = True
+    )
+    final_df = final_df.loc[
+        final_df['employee_id'] > mean_per_department
+    ].sort_values(
+        by='employee_id',
+        ascending=False
+    )
+
+    final_df.columns = [
+        "id",
+        "department",
+        "hired"
+    ]
+
+    return download_file(
+        final_df,
+        f'reporting_{reporting_year}',
+        f'department_hired_employee_more_than_mean_{reporting_year}.xlsx'
+    )
+
+
