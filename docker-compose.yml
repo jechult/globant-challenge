@@ -12,11 +12,20 @@ services:
       - "./ddl_script:/docker-entrypoint-initdb.d"
       - mysql_data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
-      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/dbrootpass
+      - MYSQL_PASSWORD_FILE=/run/secrets/dbrootuser
       - MYSQL_USER=jechu
+    secrets:
+      - dbrootpass
+      - dbrootuser
     expose: 
       - 3306
+  
+secrets:
+  dbrootpass:
+      file: db_root_pass.txt
+  dbrootuser:
+      file: db_user_pass.txt
 
 volumes:
   mysql_data:
