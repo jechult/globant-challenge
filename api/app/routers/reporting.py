@@ -114,14 +114,13 @@ def get_hired_employee_per_quarter(
         inplace = True
     )
 
-    final_df.columns = [
-        "department",
-        "job",
-        "Q1",
-        "Q2",
-        "Q3",
-        "Q4"
-    ]
+    final_df.rename(
+        columns = {
+            "department_name" : "department",
+            "job_name" : "job"
+        },
+        inplace = True
+    )
 
     return download_file(
         final_df,
