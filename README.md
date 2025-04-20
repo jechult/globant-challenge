@@ -207,3 +207,7 @@ you're going to need it for the following tests. ⚠ Warning: The obtained acces
     -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
     =============================================================== 7 passed, 1 warning in 8.05s ===============================================================
     ```
+
+## 4. 🧪 API Cloud Architecture in AWS
+
+<img src="https://github.com/jechult/globant-challenge/blob/02965e39549a988fda564d5d11faf873a9cee3e3/api_cloud_architecture.png" alt="Alt text" title="API Cloud Architecture in AWS">
