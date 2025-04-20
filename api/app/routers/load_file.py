@@ -70,4 +70,4 @@ def load_file(
     
     except Exception as e:
 
-        return {f'message: {e}'}
+        return {"message": {e}}
