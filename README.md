@@ -35,7 +35,7 @@ A RESTful API to migrate data from files to database and get reports from it.
 
 ## 0. MySQL Database Relational Model
 
-<img src="https://github.com/jechult/challenge-code/blob/429bc5790386e4b638049f6ae4a97e7693b6f78e/db/data_model.png" alt="Alt text" title="MySQL Database Relational Model">
+<img src="https://github.com/jechult/globant-challenge/blob/c50e260123bf35354c203256e3d9fdf579be0286/db_relational_model.png" alt="Alt text" title="MySQL Database Relational Model">
 
 ## 1. 👩‍💻 Pre requisites
 
