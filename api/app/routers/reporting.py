@@ -141,6 +141,7 @@ def get_department_hired_employee_more_than_mean(
         employees hired (descending).
     Args:
         current_user: parameter to ensure user is correctly authenticated
+        reporting_year: year used to get the information
     Returns:
         downloaded file containing information regarding required report
     """
